@@ -1,0 +1,34 @@
+install.packages("VGAM")
+install.packages("actuar")
+install.packages("psych")
+install.packages("ADGofTest")
+install.packages("fitdistrplus")
+install.packages("BB")
+install.packages("maxLik")
+install.packages("ZIGP")
+install.packages("MASS")
+
+library(actuar)
+library(psych)
+library(ADGofTest)
+library(fitdistrplus)
+library(BB)
+library(maxLik)
+library(ZIGP)
+library(MASS)
+library(VGAM)
+
+
+datos<-data.frame(unidades=c(rep(0,109),rep(1,65),rep(2,22),rep(3,3),4))
+frec= table(datos)
+ajuste.poisson<-fitdistr(datos$unidades,"Poisson")
+lamda<-ajuste.poisson$estimate
+lamda
+# otra forma de obtener los datos
+dmuertes<-data.frame(muertes=c(rep(0,109),rep(1,65),rep(2,22),rep(3,3),4))
+#Determinar frecuencias estimadas
+datosest=200*dpois(0:4,lamda)
+# 200 = Numero de la muestra
+# hist(datos$unidades,breaks=-0.5:4.5)
+hist(datos$unidades,breaks=-0.5:4.5,freq=TRUE,main="",xlab="Num de sinie", ylab="Casos")
+lines(0:4,200*dpois(0:4,lamda))
